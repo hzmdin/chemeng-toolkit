@@ -1,6 +1,4 @@
-# chemeng-toolkit
-
-# 🧪 ChemE Computational Toolkit
+# 🧪 ChemEng Toolkit by hzmdin
 
 <div align="center">
 
@@ -11,7 +9,7 @@
 
 **A toolkit implementing Python into core concepts and principles from Chemical Engineering Study.**
 
-[Course Syllabus Matrix](#-coursework-matrix) • [Repository Architecture](#-repository-architecture) • [Daily Coding Challenge](#-30-minute-daily-challenge)
+[Course Syllabus Matrix](#-coursework-matrix) • [Repository Architecture](#-repository-architecture)
 
 </div>
 
@@ -19,7 +17,7 @@
 
 ## 📌 Overview
 
-This repository serves as a centralized computational laboratory for my 2nd-year Chemical & Biomolecular Engineering coursework. The objective is to translate theoretical equations, fluid dynamics, reaction kinetics, and transport phenomena into self-authored, modular Python code—one 30-minute daily commit at a time.
+This repository serves as a centralized computational laboratory for my 2nd-year Chemical & Biomolecular Engineering coursework. The objective is to translate theoretical equations, fluid dynamics, reaction kinetics, and transport phenomena into self-authored, modular Python code—one 30-minute daily commit at a time (if I can make it in time).
 
 > ⚡ **Core Philosophy:** 100% hand-coded implementation with zero copy-pasted solutions. Every function is built from first principles using numerical methods, scientific libraries (`NumPy`, `SciPy`), and custom data visualizations (`Matplotlib`).
 
