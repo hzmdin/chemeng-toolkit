@@ -1,0 +1,76 @@
+import math
+import pandas as pd
+import matplotlib.pyplot as plt
+
+def calc_grad(scalar_func, x, y, z, h=1e-5):
+    dfdx = (scalar_func(x+h,y,z)-scalar_func(x-h,y,z))/(2*h)
+    dfdy = (scalar_func(x,y+h,z)-scalar_func(x,y-h,z))/(2*h)
+    dfdz = (scalar_func(x,y,z+h)-scalar_func(x,y,z-h))/(2*h)
+    grad = [dfdx, dfdy, dfdz]
+    return grad
+
+def calc_div(u_func, v_func, w_func, x, y, z, h=1e-5):
+    dudx = (u_func(x+h,y,z)-u_func(x-h,y,z))/(2*h)
+    dvdy = (v_func(x,y+h,z)-v_func(x,y-h,z))/(2*h)
+    dwdz = (w_func(x,y,z+h)-w_func(x,y,z-h))/(2*h)
+    div = dudx+dvdy+dwdz
+    return div
+
+def calc_curl(u_func, v_func, w_func, x, y, z, h=1e-5):
+    dwdy = (w_func(x,y+h,z)-w_func(x,y-h,z))/(2*h)
+    dvdz = (v_func(x,y,z+h)-v_func(x,y,z-h))/(2*h)
+    i_curl = dwdy-dvdz
+    dudz = (u_func(x,y,z+h)-u_func(x,y,z-h))/(2*h)
+    dwdx = (w_func(x+h,y,z)-w_func(x-h,y,z))/(2*h)
+    j_curl = dudz-dwdx
+    dvdx = (v_func(x+h,y,z)-v_func(x-h,y,z))/(2*h)
+    dudy = (u_func(x,y+h,z)-u_func(x,y-h,z))/(2*h)
+    k_curl = dvdx-dudy
+    curl = [i_curl, j_curl, k_curl]
+    magn_of_curl = math.sqrt(curl[0]**2 + curl[1]**2 + curl[2]**2)
+    return magn_of_curl
+
+def analyze_fluid_element(u_func, v_func, w_func, x, y, z):
+    div = calc_div(u_func, v_func, w_func, x, y, z)
+    curl = calc_curl(u_func, v_func, w_func, x, y, z)
+    if abs(div) < 1e-4:
+        print("Incompressible")
+    if abs(curl) < 1e-4:
+        print("Irrotational")
+    return div, curl
+
+# For future use, change this value : u_func, v_func, w_func, x,y,z,scalar_func
+def u_func(x,y,z):
+    return 3*y
+
+def v_func(x,y,z):
+    return 0
+
+def w_func(x,y,z):
+    return 0
+
+def scalar_func(x,y,z):
+    return 100*math.exp(-((x**2)+(y**2)+(z**2)))
+
+x,y,z = 1,2,0
+div,curl = analyze_fluid_element(u_func, v_func, w_func, x, y, z)
+grad = calc_grad(scalar_func, x, y, z)
+
+data = {
+    "Gradient (vector)":grad,
+    "Divergence (Scalar)":div,
+    "Curl (Scalar)":curl
+}
+
+df = pd.DataFrame(data)
+print(df.to_string(index=False))
+
+# plt.quiver(x,y,z)
+# plt.xlabel('x')
+# plt.ylabel('y')
+# plt.title("Graph")
+# plt.show()
+
+# ax = plt.axes(projection='3d')
+# surf = ax.plot_surface(z,y,z, cmap='viridis', edgecolor='none')
+# plt.show()
