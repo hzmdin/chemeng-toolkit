@@ -1,0 +1,60 @@
+import random
+
+element_database = {
+    1: {"name":"Hydrogen", "symbol":"H", "mass":1.008},
+    2: {"name":"Helium" , "symbol":"He", "mass": 4.003},
+    3: {"name":"Lithium" , "symbol":"Li", "mass":6.941},
+    4: {"name":"Beryllium" , "symbol":"Be", "mass":9.012},
+    5: {"name":"Boron" , "symbol":"B", "mass":10.81},
+    6: {"name":"Carbon" , "symbol":"C", "mass":12.01},
+    7: {"name":"Nitrogen" , "symbol":"N", "mass":14.01},
+    8: {"name":"Oxygen" , "symbol":"O", "mass":16.00},
+    9: {"name":"Fluorine" , "symbol":"F", "mass":19.00},
+    10: {"name":"Neon" , "symbol":"Ne", "mass":20.18},
+    11: {"name":"Sodium" , "symbol":"Na", "mass":22.99},
+    12: {"name":"Magnesium" , "symbol":"Mg", "mass":24.31},
+    13: {"name":"Aluminium", "symbol":"Al", "mass":26.98},
+    14: {"name":"Silicon", "symbol":"Si", "mass":28.09},
+    15: {"name":"Phosphorus", "symbol":"P", "mass":30.97},
+    16: {"name":"Sulfur", "symbol":"S", "mass":32.07},
+    17: {"name":"Chlorine", "symbol":"Cl", "mass":35.45},
+    18: {"name":"Argon", "symbol":"Ar", "mass":39.95},
+    19: {"name":"Potassium", "symbol":"K", "mass":39.10},
+    20: {"name":"Calcium", "symbol":"Ca", "mass":40.08}
+}
+
+def quiz_mass():
+    random_atomic_number = random.choice(list(element_database.keys()))
+    guess = input(f"What is the atomic mass for element that has atomic number of {random_atomic_number}? \nAnswer: ")
+    answer = element_database[random_atomic_number]["mass"]
+    is_correct = float(guess) == answer
+    if is_correct:
+        print("Right")
+    else:
+        print("Wrong")
+
+def quiz_element():
+    random_atomic_number = random.choice(list(element_database.keys()))
+    random_element = element_database[random_atomic_number]["name"]
+    guess = input(f"What is the name of the element that has atomic number {random_atomic_number}?\nAnswer: ")
+    is_true = guess.lower() == random_element.lower()
+    if is_true:
+        print("Right!")
+    else:
+        print("Wrong")
+
+input_q_num = input("How many questions do you want to challenge right now?\n")
+q_num = int(input_q_num)
+input_type = input("What type of questions you want to do?\n" \
+"1) quiz about atomic mass of element\n" \
+"2) quiz about name of element from given atomic number\n"
+"---------Type 1 or 2---------\n")
+q_type = int(input_type)
+
+for i in range(q_num):
+    if q_type == 1:
+        print(f"Question {i+1}:")
+        quiz_mass()
+    elif q_type == 2:
+        print(f"Question {i+1}:")
+        quiz_element()
