@@ -1,13 +1,22 @@
 import math
 import pandas as pd
 import matplotlib.pyplot as plt
+import sympy as sp
+from sympy import symbols
+from sympy.vector import Del
 
-def calc_grad(scalar_func, x, y, z, h=1e-5):
-    dfdx = (scalar_func(x+h,y,z)-scalar_func(x-h,y,z))/(2*h)
-    dfdy = (scalar_func(x,y+h,z)-scalar_func(x,y-h,z))/(2*h)
-    dfdz = (scalar_func(x,y,z+h)-scalar_func(x,y,z-h))/(2*h)
-    grad = [dfdx, dfdy, dfdz]
-    return grad
+# def calc_grad(del)
+
+def calc_partial(func, x, y, z):
+    dell = func.diff(x) + func.diff(y) + func.diff(z)
+    return dell
+
+# def calc_grad(scalar_func, x, y, z, h=1e-5):
+#     dfdx = (scalar_func(x+h,y,z)-scalar_func(x-h,y,z))/(2*h)
+#     dfdy = (scalar_func(x,y+h,z)-scalar_func(x,y-h,z))/(2*h)
+#     dfdz = (scalar_func(x,y,z+h)-scalar_func(x,y,z-h))/(2*h)
+#     grad = [dfdx, dfdy, dfdz]
+#     return grad
 
 def calc_div(u_func, v_func, w_func, x, y, z, h=1e-5):
     dudx = (u_func(x+h,y,z)-u_func(x-h,y,z))/(2*h)
@@ -52,7 +61,7 @@ def w_func(x,y,z):
 def scalar_func(x,y,z):
     return 100*math.exp(-((x**2)+(y**2)+(z**2)))
 
-x,y,z = 1,2,0
+#x,y,z = 1,2,0
 div,curl = analyze_fluid_element(u_func, v_func, w_func, x, y, z)
 grad = calc_grad(scalar_func, x, y, z)
 
@@ -65,12 +74,4 @@ data = {
 df = pd.DataFrame(data)
 print(df.to_string(index=False))
 
-# plt.quiver(x,y,z)
-# plt.xlabel('x')
-# plt.ylabel('y')
-# plt.title("Graph")
-# plt.show()
-
-# ax = plt.axes(projection='3d')
-# surf = ax.plot_surface(z,y,z, cmap='viridis', edgecolor='none')
-# plt.show()
+#-------------------------------------------------------
