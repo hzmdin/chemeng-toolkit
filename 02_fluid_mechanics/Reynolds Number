@@ -1,0 +1,34 @@
+import warnings
+
+def calc_reynolds(rho, v, D, mew):
+    if any(param <= 0 for param in (rho, v, D, mew)):
+        raise ValueError("The input value is invalid")
+    else:
+        reynolds = (rho*v*D)/mew
+        return reynolds
+
+def calc_darcy_friction(reynolds, regime):
+    if regime == "Laminar":
+        return 64 / reynolds
+    else:
+        warnings.warn("Non-laminar friction factor requires iterative models")
+
+def classify_regime(reynolds):
+    if reynolds < 2100:
+        return "Laminar"
+    elif 2100 <= reynolds <= 4000:
+        return "Transitional"
+    else:
+        return "Turbulent"
+
+rho = 998.2
+mew = 0.001002
+D = 0.05
+v = 1.5
+
+reynolds = calc_reynolds(rho, v, D, mew)
+print(reynolds)
+regime = classify_regime(reynolds)
+print(regime)
+darcy_friction = calc_darcy_friction(reynolds, regime)
+print(darcy_friction)
