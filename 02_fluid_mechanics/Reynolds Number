@@ -1,34 +1,47 @@
 import warnings
+import math
 
 def calc_reynolds(rho, v, D, mew):
     if any(param <= 0 for param in (rho, v, D, mew)):
         raise ValueError("The input value is invalid")
     else:
-        reynolds = (rho*v*D)/mew
-        return reynolds
+        Re = (rho*v*D)/mew
+        return Re
 
-def calc_darcy_friction(reynolds, regime):
-    if regime == "Laminar":
-        return 64 / reynolds
+def calc_darcy_friction(Re, epsilon, D, regime):
+    if regime.lower() == "laminar":
+        f = 64 / Re
+        return f
+    elif regime.lower() == "turbulent":
+        relative_roughness = epsilon / D
+        term1_f = relative_roughness / 3.7
+        term2_f = 5.74 / (Re**0.9)
+        denom_f = math.log(term1_f + term2_f, 10)**2
+        f = 0.25 / denom_f
+        return f
     else:
-        warnings.warn("Non-laminar friction factor requires iterative models")
+        warnings.warn("Other friction factor requires iterative models")
 
-def classify_regime(reynolds):
-    if reynolds < 2100:
+def classify_regime(Re):
+    if Re < 2100:
         return "Laminar"
-    elif 2100 <= reynolds <= 4000:
+    elif 2100 <= Re <= 4000:
         return "Transitional"
     else:
         return "Turbulent"
 
+# variable mostly for LAMINAR
 rho = 998.2
 mew = 0.001002
 D = 0.05
 v = 1.5
 
-reynolds = calc_reynolds(rho, v, D, mew)
-print(reynolds)
-regime = classify_regime(reynolds)
+#extra variable for TURBULENT
+epsilon = 0.000045
+
+Re = calc_reynolds(rho, v, D, mew)
+print(Re)
+regime = classify_regime(Re)
 print(regime)
-darcy_friction = calc_darcy_friction(reynolds, regime)
+darcy_friction = calc_darcy_friction(Re, epsilon, D, regime)
 print(darcy_friction)
