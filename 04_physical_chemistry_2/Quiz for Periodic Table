@@ -26,12 +26,12 @@ element_database = {
 def quiz_mass():
     random_atomic_number = random.choice(list(element_database.keys()))
     guess = input(f"What is the atomic mass for element that has atomic number of {random_atomic_number}? \nAnswer: ")
-    answer = element_database[random_atomic_number]["mass"]
-    is_correct = float(guess) == answer
+    random_mass = element_database[random_atomic_number]["mass"]
+    is_correct = float(guess) == random_mass
     if is_correct:
-        print("Right")
+        print(f"Correct!\nElement that has atomic number of {random_atomic_number} has {random_mass} atomic mass!")
     else:
-        print("Wrong")
+        print(f"Incorrect. \nElement that has atomic number of {random_atomic_number} has {random_mass} atomic mass.")
 
 def quiz_element():
     random_atomic_number = random.choice(list(element_database.keys()))
@@ -43,12 +43,26 @@ def quiz_element():
     else:
         print("Wrong")
 
+def quiz_mass_to_name():
+    random_atomic_number = random.choice(list(element_database.keys()))
+    random_mass = element_database[random_atomic_number]["mass"]
+    random_element = element_database[random_atomic_number]["name"]
+    guess = input(f"Given an element has {random_mass} atomic mass. \nWhat is the element?\n")
+    is_true = guess.lower() == random_element.lower()
+    if is_true:
+        print(f"Correct! \n{random_element} has atomic mass of {random_mass}!\n")
+    else:
+        print(f"Incorrect.\nThe element that has {random_mass} atomic mass is {random_element}.\n")
+
 input_q_num = input("How many questions do you want to challenge right now?\n")
 q_num = int(input_q_num)
 input_type = input("What type of questions you want to do?\n" \
-"1) quiz about atomic mass of element\n" \
-"2) quiz about name of element from given atomic number\n"
-"---------Type 1 or 2---------\n")
+"From given atomic number:"\
+"1) guess the atomic mass of element\n" \
+"2) guess the element\n" \
+"From given atomic mass:\n"\
+"3) Guess the element\n"\
+"----------------------------------------- Type 1 ~ 3 -----------------------------------------\n")
 q_type = int(input_type)
 
 for i in range(q_num):
@@ -58,3 +72,6 @@ for i in range(q_num):
     elif q_type == 2:
         print(f"Question {i+1}:")
         quiz_element()
+    elif q_type == 3:
+        print(f"Question {i+1}:")
+        quiz_mass_to_name()
