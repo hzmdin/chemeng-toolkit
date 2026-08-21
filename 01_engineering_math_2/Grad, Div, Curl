@@ -2,29 +2,35 @@ import sympy as sp
 from sympy.vector import CoordSys3D, divergence, curl, gradient
 import pandas as pd
 
-N = CoordSys3D('N')
-x, y, z = N.x, N.y, N.z
-scalar_field = N.x*N.y*N.z
-vector_field = N.i + N.j + N.k
-
-def calc_grad(N, scalar_field):
+def calc_grad(scalar_field):
     return gradient(scalar_field)
 
-def calc_divergence(N, scalar_field, vector_field):
-    return divergence(scalar_field*vector_field)
+def calc_divergence(vector_field):
+    return divergence(vector_field)
 
-def calc_curl(N, scalar_field):
-    return curl(scalar_field*N.i)
+def calc_curl(vector_field):
+    return curl(vector_field)
 
-grad = calc_grad(N, scalar_field)
-div = calc_divergence(N, scalar_field, vector_field)
-cur = calc_curl(N, scalar_field)
+def input_coeff(local_dict):
+    u = sp.sympify(input("Please input u value:\n"), locals = local_dict)
+    v = sp.sympify(input("Please input v value:\n"), locals = local_dict)
+    w = sp.sympify(input("Please input w value:\n"), locals = local_dict)
+    return u, v, w
 
-data = {
-    "Gradient" : [grad],
-    "Divergence" : [div],
-    "Curl" : [cur]
-}
+N = CoordSys3D('N')
+x, y, z = N.x, N.y, N.z
 
-df = pd.DataFrame(data)
-print(df.to_string(index=False))
+local_vars = {'x': x, 'y': y, 'z': z}
+
+u, v, w = input_coeff(local_vars)
+
+T = 100* sp.exp(-(x**2 + y**2 + z**2)) # Change the function here
+vector_field = u*N.i + v*N.j + w*N.k
+
+grad = calc_grad(T)
+div = calc_divergence(vector_field)
+cur = calc_curl(vector_field)
+
+print(f"Gradient is {grad}\n")
+print(f"divergence is {div}\n")
+print(f"curl is {cur}\n")
