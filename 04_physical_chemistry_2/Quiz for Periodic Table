@@ -20,7 +20,17 @@ element_database = {
     17: {"name":"Chlorine", "symbol":"Cl", "mass":35.45},
     18: {"name":"Argon", "symbol":"Ar", "mass":39.95},
     19: {"name":"Potassium", "symbol":"K", "mass":39.10},
-    20: {"name":"Calcium", "symbol":"Ca", "mass":40.08}
+    20: {"name":"Calcium", "symbol":"Ca", "mass":40.08},
+    21: {"name":"Scandium", "symbol":"Sc", "mass":44.96},
+    22: {"name":"Titanium", "symbol":"Ti", "mass":47.88},
+    23: {"name":"Vanadium", "symbol":"V", "mass":50.94},
+    24: {"name":"Chromium", "symbol":"Cr", "mass":52.00},
+    25: {"name":"Manganese", "symbol":"Mn", "mass":54.94},
+    26: {"name":"Iron", "symbol":"Fe", "mass":55.85},
+    27: {"name":"Cobalt", "symbol":"Co", "mass":58.93},
+    28: {"name":"Nickel", "symbol":"Ni", "mass":58.69},
+    29: {"name":"Copper", "symbol":"Cu", "mass":63.55},
+    30: {"name":"Zinc", "symbol":"Zn", "mass":65.38}
 }
 
 def quiz_mass():
