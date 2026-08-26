@@ -30,12 +30,21 @@ def classify_regime(Re):
     else:
         return "Turbulent"
 
+def calc_head_loss(f, L, D, v, g=9.81):
+    h_f = f*(L/D)*(v**2/2*g)
+    return h_f
+
+def calc_pressure_drop(rho, h_f, g=9.81):
+    delta_p_kpa = (rho * g * h_f)/1000
+    return delta_p_kpa
+
 # variable mostly for LAMINAR
 rho = 998.2
 mew = 0.001002
 D = 0.05
 v = 1.5
-
+f = 0.0227
+L = 100
 #extra variable for TURBULENT
 epsilon = 0.000045
 
@@ -45,3 +54,6 @@ regime = classify_regime(Re)
 print(regime)
 darcy_friction = calc_darcy_friction(Re, epsilon, D, regime)
 print(darcy_friction)
+h_f= calc_head_loss(f, L, D, v)
+pressure_drop = calc_pressure_drop(rho, h_f)
+print(f"h_f : {h_f}\npressure drop : {pressure_drop}")
