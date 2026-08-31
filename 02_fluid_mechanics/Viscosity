@@ -1,0 +1,18 @@
+import sympy as sp
+
+def calc_macroscopic_stress(F, A):
+    return F/A
+
+def calc_viscous_stress_symbolic(mew, u, y):
+    velocity_gradient = sp.diff(u, y)
+    tao = mew*velocity_gradient
+    return tao
+
+y = sp.Symbol('y')
+u = 50*y**2
+F = 1.2
+A = 0.08
+mew = 3.5 * 10**-5
+
+print(calc_macroscopic_stress(F,A))
+print(calc_viscous_stress_symbolic(mew, u, y))
